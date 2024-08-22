@@ -16,7 +16,7 @@
         style="background-color: #000000ba; max-width: 30rem"
       >
         <form id="signupForm">
-          <h2 class="text-white mt-3 mb-5">Register an Account</h2>
+          <h2 class="text-white text-center my-3">Register an Account</h2>
           <div class="row">
             <div class="col-12 col-md-6 mb-2">
               <label for="firstnameInput" class="form-label text-white"
@@ -87,7 +87,7 @@
       </div>
     </div>
 
-    <!-- ALl About Modals -->
+    <!-- Validation Modal -->
     <div
       class="modal fade"
       id="validationModal"
@@ -120,7 +120,7 @@
       </div>
     </div>
 
-    <!-- Get Data -->
+    <!-- Data Display Modal -->
     <div
       class="modal fade"
       id="dataModal"
@@ -132,7 +132,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="dataModalLabel">
-              Successfully Registered Account
+              Personal Information
             </h5>
             <button
               type="button"
@@ -184,11 +184,6 @@
         document.body.style.backgroundBlendMode = "multiply";
       };
 
-      const mainID = document.querySelector("#id");
-      mainID.innerHTML = `
-      
-      `;
-
       const form = document.getElementById("signupForm");
       form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -204,6 +199,7 @@
         let modalMessage = "";
         let hasError = false;
 
+        // Validation logic
         if (
           !firstname ||
           !lastname ||
@@ -220,11 +216,23 @@
 
         if (hasError) {
           document.getElementById("modalMessage").innerText = modalMessage;
+
+          // Clear form fields
+          form.reset();
+
+          // Clear any previous data in the data modal
+          document.getElementById("modalFirstname").innerText = "";
+          document.getElementById("modalLastname").innerText = "";
+          document.getElementById("modalEmail").innerText = "";
+          document.getElementById("modalPassword").innerText = "";
+
+          // Show validation modal
           const validationModal = new bootstrap.Modal(
             document.getElementById("validationModal")
           );
           validationModal.show();
         } else {
+          // If no errors, show the data in the data modal
           document.getElementById("modalFirstname").innerText = firstname;
           document.getElementById("modalLastname").innerText = lastname;
           document.getElementById("modalEmail").innerText = email;
